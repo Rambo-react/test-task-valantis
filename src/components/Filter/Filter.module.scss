@@ -1,0 +1,84 @@
+@import '../../styles/variables';
+.wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  // column-gap: 20px;
+  select {
+    background-color: $background-color;
+    // border-color: $border-color;
+    border-color: transparent;
+    border-radius: 15px;
+    color: rgba($color: $font-color, $alpha: 0.3);
+    font-size: 1.4rem;
+    padding: 6px 5px 6px 5px;
+    cursor: pointer;
+    &:hover {
+      color: darken($color: $font-color, $amount: 20);
+    }
+    &:active {
+      transform: translateY(1px);
+      color: $font-color;
+    }
+    option {
+      color: $font-color;
+    }
+  }
+}
+
+.filter {
+  margin: 0 10px;
+  width: 100%;
+  position: relative;
+  display: flex;
+
+  input {
+    padding: 7px 30px 7px 32px;
+    font-size: 1.4rem;
+    border: 1px solid $border-color;
+    background-color: #011e3b;
+    // background-color: $background-color;
+    border-radius: 15px;
+    width: 100%;
+    color: $font-color;
+    &:hover {
+      border-color: rgba($color: $font-color, $alpha: 0.3);
+    }
+    &:focus {
+      border-color: $font-color;
+    }
+  }
+
+  .clear {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0.2;
+    cursor: pointer;
+    svg {
+      width: 20px;
+      height: 20px;
+      path {
+        fill: white;
+      }
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .search {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    opacity: 0.2;
+    svg {
+      width: 18px;
+      height: 18px;
+      path {
+        fill: white;
+      }
+    }
+  }
+}

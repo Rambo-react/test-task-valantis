@@ -1,0 +1,45 @@
+@import './styles/variables';
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  outline: none;
+  font-family: 'Proxima Nova', Roboto, system-ui, Tahoma, sans-serif;
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-size: 10px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: #091928;
+  color: $font-color;
+  background-color: $background-color;
+  border-color: $border-color;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+a,
+span,
+p,
+b,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: black;
+}
+
+a {
+  text-decoration: none;
+}
