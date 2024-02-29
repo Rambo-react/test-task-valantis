@@ -17,14 +17,14 @@ export const productsApi = createApi({
     { maxRetries: 1 }
   ),
   endpoints: (build) => ({
-    getProducts: build.mutation({
+    getItems: build.mutation({
       query: (params) => ({
         url: '/',
         method: 'POST',
         body: { action: 'get_items', params },
       }),
     }),
-    getIds: build.mutation({
+    getIdItems: build.mutation({
       query: (params) => ({
         url: '/',
         method: 'POST',
@@ -32,18 +32,26 @@ export const productsApi = createApi({
       }),
       // invalidatesTags: [{ type: 'Products', id: 'LIST' }],
     }),
-    getFilteredIds: build.mutation({
+    getFilteredIdList: build.mutation({
       query: (params) => ({
         url: '/',
         method: 'POST',
         body: { action: 'filter', params },
       }),
     }),
+    getFields: build.mutation({
+      query: (params) => ({
+        url: '/',
+        method: 'POST',
+        body: { action: 'get_fields', params },
+      }),
+    }),
   }),
 })
 
 export const {
-  useGetProductsMutation,
-  useGetIdsMutation,
-  useGetFilteredIdsMutation,
+  useGetItemsMutation,
+  useGetIdItemsMutation,
+  useGetFilteredIdListMutation,
+  useGetFieldsMutation,
 } = productsApi

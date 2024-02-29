@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import styles from './App.module.scss'
-import ProductList from './components/ProductList/ProductList'
 import Filter from './components/Filter/Filter'
 import Pagination from './components/Pagination/Pagination'
 import {
-  useGetFilteredIdsMutation,
-  useGetIdsMutation,
-} from './components/api/productsApi'
+  useGetFilteredIdListMutation,
+  useGetIdItemsMutation,
+} from './api/productsApi'
+import Loader from './components/Loader/Loader'
+import Table from './components/Table/Table'
 
 function App() {
   //filter
@@ -23,8 +24,12 @@ function App() {
   const [currentIdList, setCurrentIdList] = useState([])
 
   //hooks from productsApi
-  const [getAllIds, getAllinfo] = useGetIdsMutation()
-  const [getFilteredIds, getFilteredInfo] = useGetFilteredIdsMutation()
+  const [getIdItems, { idItemsIsLoading, idItemsIsError, IdItemsError }] =
+    useGetIdItemsMutation()
+  const [
+    getFilteredIdList,
+    { filteredIdListIsLoading, filteredIdListIsError, filteredIdListError },
+  ] = useGetFilteredIdListMutation()
 
   //page count
   useEffect(() => {
@@ -32,9 +37,8 @@ function App() {
       const newTotalPages = Math.ceil(idList.length / limitPage)
       setTotalPages(newTotalPages)
       setCurrentPage(1)
-      console.log('изменили количество страниц на :', newTotalPages)
     }
-  }, [idList])
+  }, [idList, limitPage])
 
   //products on page
   useEffect(() => {
@@ -42,8 +46,7 @@ function App() {
     const firstProductIndex = lastProductIndex - limitPage
     const productsOnPage = idList.slice(firstProductIndex, lastProductIndex)
     setCurrentIdList(productsOnPage)
-    console.log('засетали часть айдишников для страницы', productsOnPage)
-  }, [currentPage, idList])
+  }, [currentPage, idList, limitPage])
 
   //request to Api by condition
   const onSearchClickHandler = async () => {
@@ -54,28 +57,22 @@ function App() {
         inputValue = Number(filterValue)
       }
       //=
-      const data = await getFilteredIds({
+      const data = await getFilteredIdList({
         [selectedOption]: inputValue,
       }).unwrap()
       setIdList(data.result)
-      console.log(
-        `достали айдишники по фильтру ${selectedOption} : ${filterValue}`,
-        data.result
-      )
     } else {
-      const data = await getAllIds({}).unwrap()
+      const data = await getIdItems({}).unwrap()
       setIdList(data.result)
-      console.log(`достали айдишники без фильтра`, data.result)
     }
   }
 
-  if (getFilteredInfo.isLoading || getAllinfo.isLoading) {
-    console.log('Loading')
-    return <h1>Загружаются данные...</h1>
+  if (idItemsIsLoading || filteredIdListIsLoading) {
+    return <Loader />
   }
 
-  if (getFilteredInfo.isError || getAllinfo.isError) {
-    console.log('ОШИБКА')
+  if (idItemsIsError || filteredIdListIsError) {
+    console.log(IdItemsError || filteredIdListError)
     return <h1>ОШИБКА</h1>
   }
 
@@ -92,10 +89,6 @@ function App() {
           Search
         </button>
       </div>
-
-      <p>
-        Страница {currentPage} из {totalPages}
-      </p>
       {totalPages > 1 && currentIdList.length > 0 && (
         <Pagination
           setCurrentPage={setCurrentPage}
@@ -103,7 +96,7 @@ function App() {
           totalPages={totalPages}
         />
       )}
-      {currentIdList.length > 0 && <ProductList idList={currentIdList} />}
+      {currentIdList.length > 0 && <Table idList={currentIdList} />}
     </div>
   )
 }

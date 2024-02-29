@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import styles from './Pagination.module.scss'
 
 const Pagination = ({
@@ -64,8 +64,11 @@ const Pagination = ({
       <span className={styles.navigate} onClick={nextPage}>
         Next &gt;
       </span>
+      <div className={styles.description}>
+        Page {currentPage} of {totalPages}
+      </div>
     </div>
   )
 }
 
-export default Pagination
+export default memo(Pagination)

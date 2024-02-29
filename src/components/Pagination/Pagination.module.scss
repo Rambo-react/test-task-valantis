@@ -2,15 +2,13 @@
 @import '../../styles/variables';
 
 .pagination {
-  // margin-top: 40px;
   text-align: center;
-
+  margin-top: 7px;
   span {
     display: inline-block;
     width: 26px;
     height: 26px;
-    line-height: 22px;
-    // margin: 0 7px;
+    line-height: 24px;
     border: 1px solid $border-color;
     border-radius: 5px;
     cursor: pointer;
@@ -35,5 +33,10 @@
     border-color: rgba($color: $font-color, $alpha: 0.3);
     // border-color: $font-color;
     color: $font-color;
+  }
+
+  .description {
+    margin: 7px auto;
+    color: rgba($color: $font-color, $alpha: 0.3);
   }
 }

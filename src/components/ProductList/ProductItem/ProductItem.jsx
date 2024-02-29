@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 
 const ProductItem = ({ id, product, price, brand }) => {
   return (
@@ -11,4 +11,4 @@ const ProductItem = ({ id, product, price, brand }) => {
   )
 }
 
-export default ProductItem
+export default memo(ProductItem)

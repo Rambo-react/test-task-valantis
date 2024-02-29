@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+
+.table {
+  width: 100%;
+  border: 2px solid $border-color;
+  border-radius: 5px;
+  padding: 7px;
+  th {
+    padding-left: 3px;
+    text-align: left;
+    border-left: 2px solid $border-color;
+    &:first-child {
+      border-color: transparent;
+    }
+  }
+  tbody {
+    td {
+      color: rgba($color: $font-color, $alpha: 0.5);
+      padding: 1px 0px 0px 5px;
+      border-top: 1px solid $border-color;
+    }
+    tr:hover {
+      td {
+        color: $font-color;
+      }
+    }
+  }
+}
