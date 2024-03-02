@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import styles from './App.module.scss'
-import Filter from './components/Filter/Filter'
-import Pagination from './components/Pagination/Pagination'
+import { Filter } from './components/Filter/Filter'
+import { Pagination } from './components/Pagination/Pagination'
 import {
   useGetFilteredIdListMutation,
   useGetIdItemsMutation,
 } from './api/productsApi'
-import Loader from './components/Loader/Loader'
-import Table from './components/Table/Table'
+import { Loader } from './components/Loader/Loader'
+import { Table } from './components/Table/Table'
+import { ErrorNotifications } from './components/ErrorNotifications/ErrorNotifications'
 
-function App() {
+export const App = () => {
   //filter
   const [filterValue, setFilterValue] = useState('')
   const [selectedOption, setSelectedOption] = useState('product')
@@ -72,8 +73,7 @@ function App() {
   }
 
   if (idItemsIsError || filteredIdListIsError) {
-    console.log(IdItemsError || filteredIdListError)
-    return <h1>ОШИБКА</h1>
+    return <ErrorNotifications error={IdItemsError || filteredIdListError} />
   }
 
   return (
@@ -100,5 +100,3 @@ function App() {
     </div>
   )
 }
-
-export default App

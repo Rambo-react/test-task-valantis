@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Loader.module.scss'
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles['lds-ring']}>
@@ -13,5 +13,3 @@ const Loader = () => {
     </div>
   )
 }
-
-export default Loader

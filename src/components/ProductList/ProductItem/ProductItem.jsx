@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-const ProductItem = ({ id, product, price, brand }) => {
+export const ProductItem = memo(({ id, product, price, brand }) => {
   return (
     <tr>
       <td>{id}</td>
@@ -9,6 +9,6 @@ const ProductItem = ({ id, product, price, brand }) => {
       <td>{brand}</td>
     </tr>
   )
-}
+})
 
-export default memo(ProductItem)
+ProductItem.displayName = 'ProductItem'

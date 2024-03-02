@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import ProductItem from './ProductItem/ProductItem'
+import { ProductItem } from './ProductItem/ProductItem'
 
-const ProductList = ({ items }) => {
+export const ProductList = memo(({ items }) => {
   return (
     <tbody>
       {items.map((el) => (
@@ -9,6 +9,6 @@ const ProductList = ({ items }) => {
       ))}
     </tbody>
   )
-}
+})
 
-export default memo(ProductList)
+ProductList.displayName = 'ProductList'
