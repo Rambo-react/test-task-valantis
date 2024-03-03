@@ -9,13 +9,12 @@ export const Filter = memo(
       setFilterValue('')
     }
 
-    const onChangeInputValueHandler = (e) => {
-      setFilterValue(e.target.value)
+    const onChangeInputHandler = (value) => {
+      selectedOption === 'price'
+        ? setFilterValue(Number(value))
+        : setFilterValue(value)
     }
 
-    const onClearInputHandler = () => {
-      setFilterValue('')
-    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.filter}>
@@ -24,18 +23,18 @@ export const Filter = memo(
           </div>
           <input
             name='search'
-            onChange={onChangeInputValueHandler}
+            onChange={(e) => onChangeInputHandler(e.target.value)}
             value={filterValue}
-            type={`${selectedOption === 'price' ? 'number' : 'text'}`}
+            type={selectedOption === 'price' ? 'number' : 'text'}
             placeholder='Filter ...'
           />
           {filterValue && (
-            <div onClick={onClearInputHandler} className={styles.clear}>
+            <div onClick={() => setFilterValue('')} className={styles.clear}>
               <Icon name='clear' />
             </div>
           )}
         </div>
-        <select onChange={onChangeSelectHandler}>
+        <select onChange={(e) => onChangeSelectHandler(e)}>
           <option value='product'>product</option>
           <option value='price'>price</option>
           <option value='brand'>brand</option>

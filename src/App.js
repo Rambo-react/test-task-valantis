@@ -10,6 +10,16 @@ import { Loader } from './components/Loader/Loader'
 import { Table } from './components/Table/Table'
 import { ErrorNotifications } from './components/ErrorNotifications/ErrorNotifications'
 
+const defaultSettings = {
+  filterValue: '',
+  selectedOption: 'product',
+  currentPage: 1,
+  limitPage: 50,
+  totalPages: 1,
+  idList: [],
+  currentIdList: [],
+}
+
 export const App = () => {
   //filter
   const [filterValue, setFilterValue] = useState('')
@@ -23,6 +33,8 @@ export const App = () => {
   //products on current page
   const [idList, setIdList] = useState([])
   const [currentIdList, setCurrentIdList] = useState([])
+
+  // const {GET_IDS, ID_LIST, CURRENT_ID_LIST, IS_LOADING, IS_ERROR, ERROR} = useGEtIdList(filterValue, selectedOption)
 
   //hooks from productsApi
   const [getIdItems, { idItemsIsLoading, idItemsIsError, IdItemsError }] =
@@ -52,14 +64,8 @@ export const App = () => {
   //request to Api by condition
   const onSearchClickHandler = async () => {
     if (filterValue) {
-      //set type of value
-      let inputValue = filterValue
-      if (selectedOption === 'price') {
-        inputValue = Number(filterValue)
-      }
-      //=
       const data = await getFilteredIdList({
-        [selectedOption]: inputValue,
+        [selectedOption]: filterValue,
       }).unwrap()
       setIdList(data.result)
     } else {
@@ -85,18 +91,22 @@ export const App = () => {
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
         />
-        <button className={styles.search} onClick={onSearchClickHandler}>
+        <button
+          className={styles.search}
+          onClick={() => onSearchClickHandler()}
+        >
           Search
         </button>
       </div>
-      {totalPages > 1 && currentIdList.length > 0 && (
-        <Pagination
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-          totalPages={totalPages}
-        />
-      )}
-      {currentIdList.length > 0 && <Table idList={currentIdList} />}
+
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        currentIdList={currentIdList}
+      />
+
+      <Table idList={currentIdList} />
     </div>
   )
 }

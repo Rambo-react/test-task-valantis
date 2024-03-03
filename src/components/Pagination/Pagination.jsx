@@ -1,29 +1,39 @@
-import { useState, memo } from 'react'
+import { useState, memo, useMemo } from 'react'
 import styles from './Pagination.module.scss'
 
 export const Pagination = memo(
-  ({ currentPage, totalPages, setCurrentPage, portionSize = 10 }) => {
-    let pages = []
+  ({
+    currentIdList,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+    portionSize = 10,
+  }) => {
+    const [portionNumber, setPortionNumber] = useState(1)
+    const pagesArray = useMemo(() => [...new Array(totalPages)], [totalPages])
 
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i)
+    if (!(totalPages > 1 && currentIdList.length > 0)) {
+      return null
     }
 
-    let portionCount = Math.ceil(totalPages / portionSize)
-    let [portionNumber, setPortionNumber] = useState(1)
+    const portionCount = Math.ceil(totalPages / portionSize)
 
-    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
-    let rightPortionPageNumber = portionNumber * portionSize
+    const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
+    const rightPortionPageNumber = portionNumber * portionSize
 
-    const content = pages
-      .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-      .map((p) => (
+    const pages = pagesArray
+      .filter(
+        (el, index) =>
+          index + 1 >= leftPortionPageNumber &&
+          index + 1 <= rightPortionPageNumber
+      )
+      .map((el, index) => (
         <span
-          className={`${currentPage === p && styles.active}`}
-          onClick={(e) => setCurrentPage(p)}
-          key={p}
+          className={`${currentPage === index + 1 && styles.active}`}
+          onClick={() => setCurrentPage(index + 1)}
+          key={index}
         >
-          {p}
+          {index + 1}
         </span>
       ))
 
@@ -47,18 +57,18 @@ export const Pagination = memo(
 
     return (
       <div className={styles.pagination}>
-        <span className={styles.navigate} onClick={prevPage}>
-          &lt; Prev
+        <span className={styles.navigate} onClick={() => prevPage()}>
+          Prev
         </span>
         {portionNumber > 1 && (
           <span onClick={() => setPortionNumber(portionNumber - 1)}>...</span>
         )}
-        {content}
+        {pages}
         {portionNumber < portionCount && (
           <span onClick={() => setPortionNumber(portionNumber + 1)}>...</span>
         )}
-        <span className={styles.navigate} onClick={nextPage}>
-          Next &gt;
+        <span className={styles.navigate} onClick={() => nextPage()}>
+          Next
         </span>
         <div className={styles.description}>
           Page {currentPage} of {totalPages}

@@ -1,14 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import products from './productsSlice'
 import { productsApi } from '../api/productsApi'
 
 export const store = configureStore({
   reducer: {
-    // products,
     [productsApi.reducerPath]: productsApi.reducer,
   },
-  // Добавляем апи мидлвар, что даст нам кэширование, инвалидацию, полинг,
-  // и другие полезные штуки
+  /** Add a middleware API, which will give us caching, invalidation, polling and other useful things */
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
 })
