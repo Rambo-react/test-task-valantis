@@ -9,29 +9,38 @@ export const Pagination = memo(
       [totalPages]
     )
 
-    console.log(pagesArray)
-    if (!(totalPages > 1 && currentIdList.length > 0)) {
-      return null
-    }
-
     const portionCount = Math.ceil(totalPages / portionSize)
 
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
 
-    const pages = pagesArray
-      .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-      .map((p) => (
-        <span
-          className={`${currentPage === p && styles.active}`}
-          onClick={() =>
-            setSettings((settings) => ({ ...settings, currentPage: p }))
-          }
-          key={p}
-        >
-          {p}
-        </span>
-      ))
+    const pages = useMemo(() => {
+      return pagesArray
+        .filter(
+          (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
+        )
+        .map((p) => (
+          <span
+            className={`${currentPage === p && styles.active}`}
+            onClick={() =>
+              setSettings((settings) => ({ ...settings, currentPage: p }))
+            }
+            key={p}
+          >
+            {p}
+          </span>
+        ))
+    }, [
+      pagesArray,
+      leftPortionPageNumber,
+      rightPortionPageNumber,
+      currentPage,
+      setSettings,
+    ])
+
+    if (!(totalPages > 1 && currentIdList.length > 0)) {
+      return false
+    }
 
     const prevPage = () => {
       if (currentPage > 1) {

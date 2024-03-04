@@ -36,16 +36,16 @@ export const useApp = (defaultSettings) => {
 
   //data with filter
   useEffect(() => {
-    if (filteredIdsData) {
-      setIdList(filteredIdsData.result)
-    }
+    if (!filteredIdsData) return
+
+    setIdList(filteredIdsData.result)
   }, [filteredIdsData])
 
   //data without filter
   useEffect(() => {
-    if (idsData) {
-      setIdList(idsData.result)
-    }
+    if (!idsData) return
+
+    setIdList(idsData.result)
   }, [idsData])
 
   // totalPages memo

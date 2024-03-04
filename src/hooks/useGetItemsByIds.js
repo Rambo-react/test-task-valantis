@@ -3,10 +3,9 @@ import { useGetItemsMutation } from '../api/productsApi'
 
 export const useGetItemsByIds = (idList) => {
   const [getItems, { data, isLoading, isError, error }] = useGetItemsMutation()
-
   useEffect(() => {
     getItems({ ids: idList })
-  }, [idList])
+  }, [idList, getItems])
   const items = useMemo(() => {
     if (data) {
       const result = data.result

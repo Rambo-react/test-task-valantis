@@ -30,6 +30,7 @@ export const App = () => {
     selectedOption,
   } = useApp(defaultSettings)
 
+  console.log('app')
   if (isLoading) {
     return <Loader />
   }
@@ -46,7 +47,7 @@ export const App = () => {
           selectedOption={selectedOption}
           setSettings={setSettings}
         />
-        <button className={styles.search} onClick={() => getIdList()}>
+        <button className={styles.search} onClick={getIdList}>
           Search
         </button>
       </div>

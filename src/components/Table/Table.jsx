@@ -7,19 +7,15 @@ import { ErrorNotifications } from '../ErrorNotifications/ErrorNotifications'
 
 export const Table = memo(({ idList }) => {
   const { items, isLoading, isError, error } = useGetItemsByIds(idList)
-
   if (!idList) {
-    return null
+    return false
   }
-
   if (isLoading) {
     return <Loader />
   }
-
   if (isError) {
     return <ErrorNotifications error={error} />
   }
-
   return (
     <div>
       <table className={styles.table}>
