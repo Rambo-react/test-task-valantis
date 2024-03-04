@@ -31,13 +31,6 @@ export const useApp = (defaultSettings) => {
     setSettings,
   ] = useState(defaultSettings)
 
-  console.log(
-    'ВСЕ ДАННЫЕ ЗАПРОСА',
-    idsData,
-    idItemsIsLoading,
-    idItemsIsError,
-    idItemsError
-  )
   // all products
   const [idList, setIdList] = useState([])
 

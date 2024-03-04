@@ -29,7 +29,6 @@ export const App = () => {
     filterValue,
     selectedOption,
   } = useApp(defaultSettings)
-  console.log('component', currentIdList)
 
   if (isLoading) {
     return <Loader />

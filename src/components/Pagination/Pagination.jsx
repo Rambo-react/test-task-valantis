@@ -4,8 +4,12 @@ import styles from './Pagination.module.scss'
 export const Pagination = memo(
   ({ currentIdList, currentPage, totalPages, setSettings, portionSize }) => {
     const [portionNumber, setPortionNumber] = useState(1)
-    const pagesArray = useMemo(() => [...new Array(totalPages)], [totalPages])
+    const pagesArray = useMemo(
+      () => [...new Array(totalPages)].map((el, i) => i + 1),
+      [totalPages]
+    )
 
+    console.log(pagesArray)
     if (!(totalPages > 1 && currentIdList.length > 0)) {
       return null
     }
@@ -16,20 +20,16 @@ export const Pagination = memo(
     const rightPortionPageNumber = portionNumber * portionSize
 
     const pages = pagesArray
-      .filter(
-        (el, index) =>
-          index + 1 >= leftPortionPageNumber &&
-          index + 1 <= rightPortionPageNumber
-      )
-      .map((el, index) => (
+      .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+      .map((p) => (
         <span
-          className={`${currentPage === index + 1 && styles.active}`}
+          className={`${currentPage === p && styles.active}`}
           onClick={() =>
-            setSettings((settings) => ({ ...settings, currentPage: index + 1 }))
+            setSettings((settings) => ({ ...settings, currentPage: p }))
           }
-          key={index}
+          key={p}
         >
-          {index + 1}
+          {p}
         </span>
       ))
 
@@ -63,11 +63,11 @@ export const Pagination = memo(
           Prev
         </span>
         {portionNumber > 1 && (
-          <span onClick={() => setPortionNumber(portionNumber - 1)}>...</span>
+          <span onClick={() => setPortionNumber((num) => num - 1)}>...</span>
         )}
         {pages}
         {portionNumber < portionCount && (
-          <span onClick={() => setPortionNumber(portionNumber + 1)}>...</span>
+          <span onClick={() => setPortionNumber((num) => num + 1)}>...</span>
         )}
         <span className={styles.navigate} onClick={() => nextPage()}>
           Next
