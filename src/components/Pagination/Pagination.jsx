@@ -2,13 +2,7 @@ import { useState, memo, useMemo } from 'react'
 import styles from './Pagination.module.scss'
 
 export const Pagination = memo(
-  ({
-    currentIdList,
-    currentPage,
-    totalPages,
-    setCurrentPage,
-    portionSize = 10,
-  }) => {
+  ({ currentIdList, currentPage, totalPages, setSettings, portionSize }) => {
     const [portionNumber, setPortionNumber] = useState(1)
     const pagesArray = useMemo(() => [...new Array(totalPages)], [totalPages])
 
@@ -30,7 +24,9 @@ export const Pagination = memo(
       .map((el, index) => (
         <span
           className={`${currentPage === index + 1 && styles.active}`}
-          onClick={() => setCurrentPage(index + 1)}
+          onClick={() =>
+            setSettings((settings) => ({ ...settings, currentPage: index + 1 }))
+          }
           key={index}
         >
           {index + 1}
@@ -42,7 +38,10 @@ export const Pagination = memo(
         if (currentPage === leftPortionPageNumber) {
           setPortionNumber((prev) => (prev > 1 ? prev - 1 : prev))
         }
-        setCurrentPage((prev) => prev - 1)
+        setSettings((settings) => ({
+          ...settings,
+          currentPage: currentPage - 1,
+        }))
       }
     }
 
@@ -51,7 +50,10 @@ export const Pagination = memo(
         if (currentPage === rightPortionPageNumber) {
           setPortionNumber((prev) => (prev < portionCount ? prev + 1 : prev))
         }
-        setCurrentPage((prev) => prev + 1)
+        setSettings((settings) => ({
+          ...settings,
+          currentPage: currentPage + 1,
+        }))
       }
     }
 
