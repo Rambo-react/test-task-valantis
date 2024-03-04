@@ -21,7 +21,7 @@ export const productsApi = createApi({
     { maxRetries: 1 }
   ),
   endpoints: (build) => ({
-    getIdItems: build.mutation({
+    getIds: build.mutation({
       query: (params) => ({
         url: '/',
         method: 'POST',
@@ -54,7 +54,7 @@ export const productsApi = createApi({
 
 export const {
   useGetItemsMutation,
-  useGetIdItemsMutation,
+  useGetIdsMutation,
   useGetFilteredIdListMutation,
   useGetFieldsMutation,
 } = productsApi
