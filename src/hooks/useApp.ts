@@ -3,21 +3,7 @@ import {
   useGetFilteredIdListMutation,
   useGetIdsMutation,
 } from '../api/productsApi'
-import { DefaultSettingsType } from '../App'
-
-type UseAppType = (defaultSettings: DefaultSettingsType) => {
-  getIdList: () => void
-  setSettings: React.Dispatch<React.SetStateAction<DefaultSettingsType>>
-  isLoading: boolean
-  isError: boolean
-  error: unknown
-  currentIdList: Array<string>
-  totalPages: number
-  currentPage: number
-  portionSize: number
-  filterValue: string | number
-  selectedOption: string
-}
+import { UseAppType } from './useApp.types'
 
 export const useApp: UseAppType = (defaultSettings) => {
   //hooks from productsApi

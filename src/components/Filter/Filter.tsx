@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { Icon } from '../Icon/Icon'
 import styles from './Filter.module.scss'
-import type { DefaultSettingsType } from '../../App'
+import { DefaultSettingsType } from '../../hooks/useApp.types'
 
-type Props = {
+interface Props {
   filterValue: string | number
   selectedOption: string
   setSettings: React.Dispatch<React.SetStateAction<DefaultSettingsType>>

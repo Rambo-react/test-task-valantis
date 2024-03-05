@@ -1,8 +1,8 @@
 import { useState, memo, useMemo } from 'react'
 import styles from './Pagination.module.scss'
-import type { DefaultSettingsType } from '../../App'
+import { DefaultSettingsType } from '../../hooks/useApp.types'
 
-type Props = {
+interface Props {
   currentIdList: string[]
   currentPage: number
   totalPages: number

@@ -1,7 +1,9 @@
 import { memo } from 'react'
 import styles from './ErrorNotifications.module.scss'
 
-type Props = { error: any }
+interface Props {
+  error: any
+}
 
 export const ErrorNotifications = memo(({ error }: Props) => {
   console.error(error)

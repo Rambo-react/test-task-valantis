@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import { ProductItem } from './ProductItem/ProductItem'
-import type { ProductItemType } from '../../hooks/useGetItemsByIds'
+import { ProductItemType } from '../../api/productApi.types'
 
-type Props = {
+interface Props {
   items: Array<ProductItemType> | Array<unknown>
 }
 

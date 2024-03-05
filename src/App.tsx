@@ -5,14 +5,7 @@ import { Loader } from './components/Loader/Loader'
 import { Table } from './components/Table/Table'
 import { ErrorNotifications } from './components/ErrorNotifications/ErrorNotifications'
 import { useApp } from './hooks/useApp'
-
-export type DefaultSettingsType = {
-  filterValue: string | number
-  selectedOption: string
-  currentPage: number
-  limitPage: number
-  portionSize: number
-}
+import { DefaultSettingsType } from './hooks/useApp.types'
 
 const defaultSettings: DefaultSettingsType = {
   filterValue: '',

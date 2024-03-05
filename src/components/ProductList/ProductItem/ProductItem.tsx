@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import type { ProductItemType } from '../../../hooks/useGetItemsByIds'
+import { ProductItemType } from '../../../api/productApi.types'
 
 export const ProductItem = memo(
   ({ id, product, price, brand }: ProductItemType) => {

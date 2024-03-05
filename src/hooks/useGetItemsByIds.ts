@@ -1,19 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { useGetItemsMutation } from '../api/productsApi'
-
-export type ProductItemType = {
-  id: string
-  product: string
-  price: number
-  brand: string | null
-}
-
-type UseGetItemsByIdsType = (idList: Array<string>) => {
-  items: Array<ProductItemType> | Array<unknown>
-  isLoading: boolean
-  isError: boolean
-  error: unknown
-}
+import { UseGetItemsByIdsType } from './useGetItemsByIds.types'
 
 export const useGetItemsByIds: UseGetItemsByIdsType = (idList) => {
   const [getItems, { data, isLoading, isError, error }] = useGetItemsMutation()
@@ -22,8 +9,7 @@ export const useGetItemsByIds: UseGetItemsByIdsType = (idList) => {
   }, [idList, getItems])
   const items = useMemo(() => {
     if (data) {
-      const result = data.result
-      const map = new Map(result.map((o) => [o.id, o]))
+      const map = new Map(data.map((o) => [o.id, o]))
       return [...map.values()]
     }
   }, [data])

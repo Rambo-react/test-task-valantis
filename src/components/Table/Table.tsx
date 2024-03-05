@@ -5,7 +5,7 @@ import { ProductList } from '../ProductList/ProductList'
 import { useGetItemsByIds } from '../../hooks/useGetItemsByIds'
 import { ErrorNotifications } from '../ErrorNotifications/ErrorNotifications'
 
-type Props = {
+interface Props {
   idList: Array<string>
 }
 
