@@ -5,17 +5,25 @@ import { ProductList } from '../ProductList/ProductList'
 import { useGetItemsByIds } from '../../hooks/useGetItemsByIds'
 import { ErrorNotifications } from '../ErrorNotifications/ErrorNotifications'
 
-export const Table = memo(({ idList }) => {
+type Props = {
+  idList: Array<string>
+}
+
+export const Table = memo(({ idList }: Props) => {
   const { items, isLoading, isError, error } = useGetItemsByIds(idList)
+
   if (!idList) {
     return false
   }
+
   if (isLoading) {
     return <Loader />
   }
+
   if (isError) {
     return <ErrorNotifications error={error} />
   }
+
   return (
     <div>
       <table className={styles.table}>

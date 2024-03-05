@@ -9,6 +9,10 @@ const md5pass = md5(pass)
  * @see {@link https://github.com/ValantisJewelry/TestTaskValantis/blob/main/API.md}.
  */
 
+// type IFields = {
+//   [key: 'product' | 'brand' | 'price']: string | number
+// }
+
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: retry(
@@ -21,12 +25,13 @@ export const productsApi = createApi({
     { maxRetries: 1 }
   ),
   endpoints: (build) => ({
-    getIds: build.mutation({
+    getIds: build.mutation<Array<string>, { offset?: number; limit?: number }>({
       query: (params) => ({
         url: '/',
         method: 'POST',
         body: { action: 'get_ids', params },
       }),
+      transformResponse: (data: { result: Array<string> }) => data.result,
     }),
     getItems: build.mutation({
       query: (params) => ({
@@ -48,6 +53,7 @@ export const productsApi = createApi({
         method: 'POST',
         body: { action: 'filter', params },
       }),
+      transformResponse: (data: { result: Array<string> }) => data.result,
     }),
   }),
 })

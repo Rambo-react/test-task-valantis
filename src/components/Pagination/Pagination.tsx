@@ -1,8 +1,23 @@
 import { useState, memo, useMemo } from 'react'
 import styles from './Pagination.module.scss'
+import type { DefaultSettingsType } from '../../App'
+
+type Props = {
+  currentIdList: string[]
+  currentPage: number
+  totalPages: number
+  setSettings: React.Dispatch<React.SetStateAction<DefaultSettingsType>>
+  portionSize: number
+}
 
 export const Pagination = memo(
-  ({ currentIdList, currentPage, totalPages, setSettings, portionSize }) => {
+  ({
+    currentIdList,
+    currentPage,
+    totalPages,
+    setSettings,
+    portionSize,
+  }: Props) => {
     const [portionNumber, setPortionNumber] = useState(1)
     const pagesArray = useMemo(
       () => [...new Array(totalPages)].map((el, i) => i + 1),

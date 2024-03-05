@@ -3,8 +3,23 @@ import {
   useGetFilteredIdListMutation,
   useGetIdsMutation,
 } from '../api/productsApi'
+import { DefaultSettingsType } from '../App'
 
-export const useApp = (defaultSettings) => {
+type UseAppType = (defaultSettings: DefaultSettingsType) => {
+  getIdList: () => void
+  setSettings: React.Dispatch<React.SetStateAction<DefaultSettingsType>>
+  isLoading: boolean
+  isError: boolean
+  error: unknown
+  currentIdList: Array<string>
+  totalPages: number
+  currentPage: number
+  portionSize: number
+  filterValue: string | number
+  selectedOption: string
+}
+
+export const useApp: UseAppType = (defaultSettings) => {
   //hooks from productsApi
   const [
     getIds,
@@ -30,7 +45,6 @@ export const useApp = (defaultSettings) => {
     { filterValue, selectedOption, currentPage, limitPage, portionSize },
     setSettings,
   ] = useState(defaultSettings)
-
   // all products
   const [idList, setIdList] = useState([])
 
@@ -38,14 +52,14 @@ export const useApp = (defaultSettings) => {
   useEffect(() => {
     if (!filteredIdsData) return
 
-    setIdList(filteredIdsData.result)
+    setIdList(filteredIdsData)
   }, [filteredIdsData])
 
   //data without filter
   useEffect(() => {
     if (!idsData) return
 
-    setIdList(idsData.result)
+    setIdList(idsData)
   }, [idsData])
 
   // totalPages memo

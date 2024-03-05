@@ -1,7 +1,9 @@
 import { memo } from 'react'
 import styles from './ErrorNotifications.module.scss'
 
-export const ErrorNotifications = memo(({ error }) => {
+type Props = { error: any }
+
+export const ErrorNotifications = memo(({ error }: Props) => {
   console.error(error)
   return (
     <div className={styles.wrapper}>

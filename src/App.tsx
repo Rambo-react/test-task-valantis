@@ -6,12 +6,19 @@ import { Table } from './components/Table/Table'
 import { ErrorNotifications } from './components/ErrorNotifications/ErrorNotifications'
 import { useApp } from './hooks/useApp'
 
-const defaultSettings = {
+export type DefaultSettingsType = {
+  filterValue: string | number
+  selectedOption: string
+  currentPage: number
+  limitPage: number
+  portionSize: number
+}
+
+const defaultSettings: DefaultSettingsType = {
   filterValue: '',
   selectedOption: 'product',
   currentPage: 1,
   limitPage: 50,
-  totalPages: 1,
   portionSize: 10,
 }
 
@@ -30,7 +37,6 @@ export const App = () => {
     selectedOption,
   } = useApp(defaultSettings)
 
-  console.log('app')
   if (isLoading) {
     return <Loader />
   }
