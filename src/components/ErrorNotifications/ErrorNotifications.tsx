@@ -9,7 +9,7 @@ export const ErrorNotifications = memo(({ error }: Props) => {
   console.error(error)
   return (
     <div className={styles.wrapper}>
-      <h1>{error}</h1>
+      <h1>{error?.status}</h1>
     </div>
   )
 })

@@ -1,9 +1,8 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
 import md5 from 'md5'
 import {
-  FieldsType,
-  GetFieldParamsType,
-  GetIdsParamsType,
+  GetFieldsRequesType,
+  GetFilteredIdListRequestType,
   GetItemsRequestType,
   ProductItemType,
   ResponseType,
@@ -29,7 +28,7 @@ export const productsApi = createApi({
     { maxRetries: 1 }
   ),
   endpoints: (build) => ({
-    getIds: build.mutation<ResponseType, GetIdsParamsType>({
+    getIds: build.mutation<ResponseType, GetFilteredIdListRequestType>({
       query: (params) => ({
         url: '/',
         method: 'POST',
@@ -46,7 +45,7 @@ export const productsApi = createApi({
       transformResponse: (data: { result: Array<ProductItemType> }) =>
         data.result,
     }),
-    getFields: build.mutation<Array<any>, GetFieldParamsType>({
+    getFields: build.mutation<Array<any>, GetFieldsRequesType>({
       query: (params) => ({
         url: '/',
         method: 'POST',
@@ -54,7 +53,10 @@ export const productsApi = createApi({
       }),
       transformResponse: (data: { result: Array<any> }) => data.result,
     }),
-    getFilteredIdList: build.mutation<ResponseType, FieldsType>({
+    getFilteredIdList: build.mutation<
+      ResponseType,
+      GetFilteredIdListRequestType
+    >({
       query: (params) => ({
         url: '/',
         method: 'POST',

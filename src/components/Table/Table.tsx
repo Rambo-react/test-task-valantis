@@ -24,6 +24,10 @@ export const Table = memo(({ idList }: Props) => {
     return <ErrorNotifications error={error} />
   }
 
+  if (!items) {
+    return <p>No products. Change your query and click Search.</p>
+  }
+
   return (
     <div>
       <table className={styles.table}>
@@ -35,7 +39,7 @@ export const Table = memo(({ idList }: Props) => {
             <th>Brand</th>
           </tr>
         </thead>
-        {items && <ProductList items={items} />}
+        <ProductList items={items} />
       </table>
     </div>
   )

@@ -49,16 +49,17 @@ export const Filter = memo(
             onChange={(e) => onChangeInputHandler(e)}
             value={filterValue}
             type={selectedOption === 'price' ? 'number' : 'text'}
-            placeholder='Filter ...'
+            placeholder='Enter your text ...'
           />
-          {filterValue && (
+          {filterValue !== '' && (
             <div onClick={onClearInputHandler} className={styles.clear}>
               <Icon name='clear' />
             </div>
           )}
         </div>
         <select
-          name='filtered field'
+          value={selectedOption}
+          name='select'
           onChange={(e) => onChangeSelectHandler(e)}
         >
           <option value='product'>product</option>

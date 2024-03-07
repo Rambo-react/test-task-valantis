@@ -5,13 +5,19 @@ import { UseGetItemsByIdsType } from './useGetItemsByIds.types'
 export const useGetItemsByIds: UseGetItemsByIdsType = (idList) => {
   const [getItems, { data, isLoading, isError, error }] = useGetItemsMutation()
   useEffect(() => {
-    getItems({ ids: idList })
+    if (idList.length > 0) {
+      getItems({ ids: idList })
+    }
   }, [idList, getItems])
   const items = useMemo(() => {
+    if (idList.length === 0) {
+      return null
+    }
     if (data) {
       const map = new Map(data.map((o) => [o.id, o]))
       return [...map.values()]
     }
-  }, [data])
+    return null
+  }, [data, idList])
   return { items, isLoading, isError, error }
 }

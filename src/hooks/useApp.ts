@@ -65,6 +65,7 @@ export const useApp: UseAppType = (defaultSettings) => {
   const currentIdList = useMemo(() => {
     const lastProductIndex = limitPage * currentPage
     const firstProductIndex = lastProductIndex - limitPage
+
     return idList.slice(firstProductIndex, lastProductIndex)
   }, [currentPage, idList, limitPage])
 
